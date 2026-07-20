@@ -533,14 +533,16 @@
       position: relative;
     }
 
-    .payment-button-link {
+    .payment-button-link,
+    .payment-action-link {
       position: absolute;
       inset: 0;
       z-index: 2;
       border-radius: inherit;
     }
 
-    .payment-button-link:focus-visible {
+    .payment-button-link:focus-visible,
+    .payment-action-link:focus-visible {
       outline: 3px solid var(--text);
       outline-offset: 3px;
     }
@@ -674,7 +676,11 @@
     }
 
     .payment-action {
+      position: relative;
       width: 100%;
+      color: #111318 !important;
+      background: #d7b77a !important;
+      opacity: 1;
     }
 
     .payment-note {
@@ -1173,17 +1179,19 @@
           alt="QR-код для перевода в сбор Сбера"
         >
       </div>
-      <a
-        class="payment-action"
-        href="https://messenger.online.sberbank.ru/sl/OK3LESKLYAtKsP0Tg"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Открыть сбор
+      <div class="payment-action">
+        <span>Открыть сбор</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-      </a>
+        <a
+          class="payment-action-link"
+          href="https://messenger.online.sberbank.ru/sl/OK3LESKLYAtKsP0Tg"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Открыть сбор Сбера"
+        ></a>
+      </div>
       <p class="payment-note">Сумму можно выбрать самостоятельно.</p>
     </section>
   </div>
