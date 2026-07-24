@@ -131,8 +131,8 @@
         var(--hero-photo),
         radial-gradient(circle at 74% 34%, rgba(215, 183, 122, 0.15), transparent 28%),
         linear-gradient(130deg, #171b23 0%, #0c0f14 48%, #11151d 100%);
-      background-position: 82% 45%, center, center;
-      background-size: auto 116%, cover, cover;
+      background-position: 78% 50%, center, center;
+      background-size: auto 100%, cover, cover;
       background-repeat: no-repeat;
       transform: scale(1.02);
     }
@@ -485,6 +485,134 @@
       background: var(--gold-soft);
     }
 
+    .reservation-actions {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .reserve-button {
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid rgba(215, 183, 122, 0.48);
+      border-radius: 999px;
+      color: var(--gold);
+      background: var(--gold-soft);
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .reserve-button:hover:not(:disabled) {
+      border-color: var(--gold);
+      background: rgba(215, 183, 122, 0.23);
+      transform: translateY(-2px);
+    }
+
+    .reserve-button:disabled {
+      cursor: default;
+      opacity: 0.7;
+    }
+
+    .reservation-status {
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 11px;
+    }
+
+    .wish-card.is-reserved {
+      border-color: rgba(215, 183, 122, 0.28);
+      background-color: #0c0f14;
+    }
+
+    .wish-card.is-reserved:hover {
+      transform: none;
+    }
+
+    .wish-card.is-reserved h3,
+    .wish-card.is-reserved > p,
+    .wish-card.is-reserved > .card-meta {
+      opacity: 0.38;
+    }
+
+    .wish-card.is-reserved h3 {
+      padding-right: 110px;
+      text-decoration: line-through;
+      text-decoration-color: rgba(215, 183, 122, 0.78);
+      text-decoration-thickness: 2px;
+    }
+
+    .wish-card.is-reserved .reserve-button {
+      color: rgba(255, 255, 255, 0.76);
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .reserved-badge {
+      position: absolute;
+      top: 74px;
+      right: 28px;
+      z-index: 3;
+      display: none;
+      padding: 7px 10px;
+      border: 1px solid rgba(215, 183, 122, 0.34);
+      border-radius: 999px;
+      color: var(--gold);
+      background: rgba(9, 11, 15, 0.82);
+      font-size: 9px;
+      font-weight: 750;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .wish-card.is-reserved .reserved-badge {
+      display: inline-flex;
+    }
+
+    .reservation-modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .reservation-modal-button {
+      min-height: 48px;
+      padding: 0 16px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.74);
+      background: rgba(255, 255, 255, 0.055);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .reservation-modal-button.confirm {
+      border-color: var(--gold);
+      color: #111318;
+      background: var(--gold);
+    }
+
+    .reservation-modal-button:disabled {
+      cursor: wait;
+      opacity: 0.58;
+    }
+
+    .reservation-feedback {
+      min-height: 18px;
+      margin: 13px 0 0;
+      color: var(--gold);
+      font-size: 11px;
+      text-align: center;
+    }
+
     .joy-actions {
       position: relative;
       z-index: 1;
@@ -572,20 +700,6 @@
 
     .payment-button {
       position: relative;
-    }
-
-    .payment-button-link,
-    .payment-action-link {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      border-radius: inherit;
-    }
-
-    .payment-button-link:focus-visible,
-    .payment-action-link:focus-visible {
-      outline: 3px solid var(--text);
-      outline-offset: 3px;
     }
 
     .qr-button {
@@ -914,6 +1028,30 @@
         padding: 26px 22px 22px;
       }
 
+      .reservation-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .reserve-button {
+        width: 100%;
+      }
+
+      .wish-card.is-reserved h3 {
+        padding-top: 34px;
+        padding-right: 0;
+      }
+
+      .reserved-badge {
+        top: 78px;
+        right: auto;
+        left: 23px;
+      }
+
+      .reservation-modal-actions {
+        grid-template-columns: 1fr;
+      }
+
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1001,7 +1139,7 @@
       </nav>
 
       <div class="wishlist-grid">
-        <article class="wish-card featured reveal" data-category="work">
+        <article class="wish-card featured reveal" data-category="work" data-wish-id="chair">
           <div class="card-top">
             <span class="card-number">01</span>
             <span class="card-category">Главная хотелка</span>
@@ -1016,7 +1154,7 @@
           </div>
         </article>
 
-        <article class="wish-card reveal" data-category="health">
+        <article class="wish-card reveal" data-category="health" data-wish-id="supplements">
           <div class="card-top">
             <span class="card-number">02</span>
             <span class="card-category">Здоровье</span>
@@ -1032,7 +1170,7 @@
           </div>
         </article>
 
-        <article class="wish-card reveal" data-category="style">
+        <article class="wish-card reveal" data-category="style" data-wish-id="sunglasses">
           <div class="card-top">
             <span class="card-number">03</span>
             <span class="card-category">Стиль</span>
@@ -1048,7 +1186,7 @@
           </div>
         </article>
 
-        <article class="wish-card reveal" data-category="style work">
+        <article class="wish-card reveal" data-category="style work" data-wish-id="image-glasses">
           <div class="card-top">
             <span class="card-number">04</span>
             <span class="card-category">Для созвонов</span>
@@ -1064,7 +1202,7 @@
           </div>
         </article>
 
-        <article class="wish-card reveal" data-category="sport health">
+        <article class="wish-card reveal" data-category="sport health" data-wish-id="yobadya">
           <div class="card-top">
             <span class="card-number">05</span>
             <span class="card-category">Активность</span>
@@ -1079,7 +1217,7 @@
           </div>
         </article>
 
-        <article class="wish-card reveal" data-category="sport">
+        <article class="wish-card reveal" data-category="sport" data-wish-id="running-shirt">
           <div class="card-top">
             <span class="card-number">06</span>
             <span class="card-category">Бег</span>
@@ -1094,7 +1232,7 @@
           </div>
         </article>
 
-        <article class="wish-card reveal" data-category="sport">
+        <article class="wish-card reveal" data-category="sport" data-wish-id="visor">
           <div class="card-top">
             <span class="card-number">07</span>
             <span class="card-category">Хоккей</span>
@@ -1109,7 +1247,7 @@
           </div>
         </article>
 
-        <article class="wish-card featured reveal" data-category="sport">
+        <article class="wish-card featured reveal" data-category="sport" data-wish-id="hockey-bag">
           <div class="card-top">
             <span class="card-number">08</span>
             <span class="card-category">Хоккей</span>
@@ -1124,7 +1262,7 @@
           </div>
         </article>
 
-        <article class="wish-card reveal" data-category="style">
+        <article class="wish-card reveal" data-category="style" data-wish-id="cap">
           <div class="card-top">
             <span class="card-number">09</span>
             <span class="card-category">Стиль</span>
@@ -1143,33 +1281,32 @@
         <article class="wish-card wide reveal" data-category="joy">
           <div class="card-top">
             <span class="card-number">10</span>
-            <span class="card-category">На удовольствие</span>
+            <span class="card-category">Мечта оверлевел</span>
           </div>
-          <h3>Инвестиции в настроение</h3>
+          <h3>Поездка в Шанхай на The International</h3>
           <p>
-            Если не хочется выбирать подарок, можно поучаствовать в сборе на маленькие
-            радости: мини-путешествия, крипта, покер и вкусная еда. Финансовая стратегия
-            сомнительная, зато эмоции!
+            Это уже прям оверлевел-желание, но было бы невероятно круто попасть в Шанхай
+            и своими глазами увидеть The International. Вдруг 30-ка — отличный повод
+            исполнить мечту по-крупному!
           </p>
           <div class="joy-actions">
             <div class="card-meta">
-              <span class="tag accent">Любая сумма</span>
-              <span class="tag">Без сложного выбора</span>
+              <span class="tag accent">Шанхай · The International</span>
+              <span class="tag">Оверлевел</span>
             </div>
             <div class="payment-controls">
-              <div class="payment-button">
-                <span>Поддержать фонд</span>
+              <a
+                class="payment-button"
+                href="https://messenger.online.sberbank.ru/sl/OK3LESKLYAtKsP0Tg"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Поддержать поездку через сбор Сбера"
+              >
+                <span>Поддержать поездку</span>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <a
-                  class="payment-button-link"
-                  href="https://messenger.online.sberbank.ru/sl/OK3LESKLYAtKsP0Tg"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Перейти к сбору Сбера"
-                ></a>
-              </div>
+              </a>
               <button
                 class="qr-button"
                 type="button"
@@ -1208,7 +1345,7 @@
     >
       <button class="payment-close" type="button" aria-label="Закрыть" data-close-payment>×</button>
       <p class="payment-kicker">Сбер · сбор</p>
-      <h2 id="payment-title">На маленькие радости</h2>
+      <h2 id="payment-title">На поездку в Шанхай</h2>
       <p class="payment-dialog-copy" id="payment-description">
         Сканируйте QR камерой телефона или откройте сбор прямо в Сбере.
       </p>
@@ -1220,20 +1357,42 @@
           alt="QR-код для перевода в сбор Сбера"
         >
       </div>
-      <div class="payment-action">
+      <a
+        class="payment-action"
+        href="https://messenger.online.sberbank.ru/sl/OK3LESKLYAtKsP0Tg"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Открыть сбор Сбера"
+      >
         <span>Открыть сбор</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <a
-          class="payment-action-link"
-          href="https://messenger.online.sberbank.ru/sl/OK3LESKLYAtKsP0Tg"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Открыть сбор Сбера"
-        ></a>
+      </a>
+      <p class="payment-note">Любая сумма приблизит мечту.</p>
+    </section>
+  </div>
+
+  <div class="payment-modal reservation-modal" id="reservation-modal" hidden aria-hidden="true">
+    <button class="payment-backdrop" type="button" aria-label="Закрыть окно" data-close-reservation></button>
+    <section
+      class="payment-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="reservation-title"
+      aria-describedby="reservation-description"
+    >
+      <button class="payment-close" type="button" aria-label="Закрыть" data-close-reservation>×</button>
+      <p class="payment-kicker">Бронь подарка</p>
+      <h2 id="reservation-title">Выбрать подарок?</h2>
+      <p class="payment-dialog-copy" id="reservation-description">
+        Другие друзья увидят, что это желание уже выбрали, но не узнают кем.
+      </p>
+      <div class="reservation-modal-actions">
+        <button class="reservation-modal-button" type="button" data-close-reservation>Не сейчас</button>
+        <button class="reservation-modal-button confirm" id="reservation-confirm" type="button">Выбрать</button>
       </div>
-      <p class="payment-note">Сумму можно выбрать самостоятельно.</p>
+      <p class="reservation-feedback" id="reservation-feedback" aria-live="polite"></p>
     </section>
   </div>
 
@@ -1302,6 +1461,241 @@
       revealItems.forEach((item) => item.classList.add("visible"));
     }
 
+    const SUPABASE_URL = "https://wmbirqkmnnrvdsmpmvsv.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_zgRFS1vG2bxLWFWhgDCXzw_vYy9E44W";
+    const RESERVATION_TOKENS_KEY = "maxim-wishlist-reservation-tokens-v1";
+    const reservationCards = Array.from(document.querySelectorAll("[data-wish-id]"));
+    const reservationModal = document.getElementById("reservation-modal");
+    const reservationTitle = document.getElementById("reservation-title");
+    const reservationDescription = document.getElementById("reservation-description");
+    const reservationConfirm = document.getElementById("reservation-confirm");
+    const reservationFeedback = document.getElementById("reservation-feedback");
+    const reservationCloseButtons = reservationModal.querySelectorAll("[data-close-reservation]");
+    let reservedWishIds = new Set();
+    let activeReservationCard = null;
+    let reservationPreviousFocus = null;
+
+    function reservationsConfigured() {
+      return SUPABASE_URL.startsWith("https://")
+        && !SUPABASE_URL.includes("__SUPABASE")
+        && SUPABASE_PUBLISHABLE_KEY.startsWith("sb_publishable_");
+    }
+
+    function getReservationTokens() {
+      try {
+        return JSON.parse(localStorage.getItem(RESERVATION_TOKENS_KEY) || "{}");
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveReservationTokens(tokens) {
+      localStorage.setItem(RESERVATION_TOKENS_KEY, JSON.stringify(tokens));
+    }
+
+    async function callReservationApi(functionName, payload = {}) {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${functionName}`, {
+        method: "POST",
+        headers: {
+          apikey: SUPABASE_PUBLISHABLE_KEY,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Reservation API error: ${response.status}`);
+      }
+
+      if (response.status === 204) {
+        return null;
+      }
+
+      return response.json();
+    }
+
+    function updateReservationCard(card) {
+      const wishId = card.dataset.wishId;
+      const isReserved = reservedWishIds.has(wishId);
+      const isMine = isReserved && Boolean(getReservationTokens()[wishId]);
+      const button = card.querySelector(".reserve-button");
+      const badge = card.querySelector(".reserved-badge");
+      const status = card.querySelector(".reservation-status");
+
+      card.classList.toggle("is-reserved", isReserved);
+      badge.textContent = isMine ? "Вы выбрали" : "Уже выбрали";
+
+      if (!reservationsConfigured()) {
+        button.textContent = "Подключаем бронь";
+        button.disabled = true;
+        status.textContent = "Скоро заработает";
+        return;
+      }
+
+      if (!isReserved) {
+        button.textContent = "Выбрать подарок";
+        button.disabled = false;
+        status.textContent = "";
+      } else if (isMine) {
+        button.textContent = "Отменить выбор";
+        button.disabled = false;
+        status.textContent = "Вы сможете освободить его с этого устройства";
+      } else {
+        button.textContent = "Уже выбрали";
+        button.disabled = true;
+        status.textContent = "Можно выбрать что-нибудь ещё";
+      }
+    }
+
+    function renderReservationCards() {
+      reservationCards.forEach(updateReservationCard);
+    }
+
+    async function refreshReservations() {
+      if (!reservationsConfigured()) {
+        renderReservationCards();
+        return;
+      }
+
+      try {
+        const rows = await callReservationApi("get_wishlist_status");
+        reservedWishIds = new Set((rows || []).map((row) => row.wish_id));
+        renderReservationCards();
+      } catch (error) {
+        reservationCards.forEach((card) => {
+          const status = card.querySelector(".reservation-status");
+          status.textContent = "Не удалось обновить бронь";
+        });
+      }
+    }
+
+    function closeReservationModal() {
+      reservationModal.hidden = true;
+      reservationModal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      reservationFeedback.textContent = "";
+
+      if (reservationPreviousFocus) {
+        reservationPreviousFocus.focus();
+      }
+    }
+
+    function openReservationModal(card) {
+      const wishId = card.dataset.wishId;
+      const wishName = card.querySelector("h3").textContent.trim();
+      const isMine = reservedWishIds.has(wishId) && Boolean(getReservationTokens()[wishId]);
+
+      activeReservationCard = card;
+      reservationPreviousFocus = document.activeElement;
+      reservationTitle.textContent = isMine ? "Освободить подарок?" : `Выбрать «${wishName}»?`;
+      reservationDescription.textContent = isMine
+        ? "После отмены это желание снова смогут выбрать другие друзья."
+        : "Другие друзья увидят, что это желание уже выбрали, но не узнают кем.";
+      reservationConfirm.textContent = isMine ? "Освободить" : "Выбрать";
+      reservationConfirm.disabled = false;
+      reservationFeedback.textContent = "";
+      reservationModal.hidden = false;
+      reservationModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      reservationConfirm.focus();
+    }
+
+    reservationCards.forEach((card) => {
+      const badge = document.createElement("span");
+      badge.className = "reserved-badge";
+      badge.textContent = "Уже выбрали";
+
+      const actions = document.createElement("div");
+      actions.className = "reservation-actions";
+
+      const button = document.createElement("button");
+      button.className = "reserve-button";
+      button.type = "button";
+      button.textContent = "Загрузка…";
+
+      const status = document.createElement("span");
+      status.className = "reservation-status";
+      status.setAttribute("aria-live", "polite");
+
+      actions.append(button, status);
+      card.append(badge, actions);
+
+      button.addEventListener("click", () => openReservationModal(card));
+    });
+
+    reservationCloseButtons.forEach((button) => {
+      button.addEventListener("click", closeReservationModal);
+    });
+
+    reservationConfirm.addEventListener("click", async () => {
+      if (!activeReservationCard || !reservationsConfigured()) {
+        return;
+      }
+
+      const wishId = activeReservationCard.dataset.wishId;
+      const wishTitle = activeReservationCard.querySelector("h3").textContent.trim();
+      const tokens = getReservationTokens();
+      const isMine = reservedWishIds.has(wishId) && Boolean(tokens[wishId]);
+
+      reservationConfirm.disabled = true;
+      reservationFeedback.textContent = isMine ? "Освобождаем…" : "Бронируем…";
+
+      try {
+        if (isMine) {
+          const released = await callReservationApi("release_wish", {
+            p_wish_id: wishId,
+            p_token: tokens[wishId]
+          });
+
+          if (released) {
+            delete tokens[wishId];
+            saveReservationTokens(tokens);
+            reservationFeedback.textContent = "Подарок снова свободен";
+          } else {
+            reservationFeedback.textContent = "Не получилось отменить выбор";
+          }
+        } else {
+          const token = crypto.randomUUID();
+          const reserved = await callReservationApi("reserve_wish", {
+            p_wish_id: wishId,
+            p_wish_title: wishTitle,
+            p_token: token
+          });
+
+          if (reserved) {
+            tokens[wishId] = token;
+            saveReservationTokens(tokens);
+            reservationFeedback.textContent = "Готово — подарок за вами!";
+          } else {
+            reservationFeedback.textContent = "Кажется, его уже успели выбрать";
+          }
+        }
+
+        await refreshReservations();
+
+        if (reservationFeedback.textContent.includes("Готово")
+          || reservationFeedback.textContent.includes("снова свободен")) {
+          setTimeout(closeReservationModal, 650);
+        }
+      } catch (error) {
+        reservationFeedback.textContent = "Связь подвела — попробуйте ещё раз";
+      } finally {
+        reservationConfirm.disabled = false;
+      }
+    });
+
+    renderReservationCards();
+    refreshReservations();
+
+    if (reservationsConfigured()) {
+      setInterval(refreshReservations, 15000);
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) {
+          refreshReservations();
+        }
+      });
+    }
+
     const paymentModal = document.getElementById("payment-modal");
     const paymentTrigger = document.querySelector("[data-open-payment]");
     const paymentCloseButtons = paymentModal.querySelectorAll("[data-close-payment]");
@@ -1333,6 +1727,8 @@
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && !paymentModal.hidden) {
         closePayment();
+      } else if (event.key === "Escape" && !reservationModal.hidden) {
+        closeReservationModal();
       }
     });
   </script>
