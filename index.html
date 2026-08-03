@@ -205,6 +205,13 @@
       font-size: clamp(16px, 2vw, 19px);
     }
 
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
     .primary-button {
       position: relative;
       isolation: isolate;
@@ -237,6 +244,36 @@
     .primary-button svg {
       width: 18px;
       height: 18px;
+    }
+
+    .hero-fund-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      min-height: 52px;
+      padding: 0 22px;
+      border: 1px solid rgba(215, 183, 122, 0.65);
+      border-radius: 999px;
+      color: var(--gold);
+      background: rgba(12, 15, 20, 0.72);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .hero-fund-button:hover {
+      border-color: var(--gold);
+      background: rgba(215, 183, 122, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .hero-fund-button svg {
+      width: 17px;
+      height: 17px;
     }
 
     .countdown {
@@ -968,6 +1005,17 @@
         font-size: 15px;
       }
 
+      .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .primary-button,
+      .hero-fund-button {
+        width: 100%;
+        justify-content: center;
+      }
+
       .countdown {
         padding: 20px;
       }
@@ -1091,12 +1139,26 @@
         <p class="hero-copy">
           Я собрал вещи, которые помогут принять новый десяток с радостью.
         </p>
-        <a class="primary-button" href="#wishlist">
-          <span>Смотреть желания</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M12 5v14M6 13l6 6 6-6"/>
-          </svg>
-        </a>
+        <div class="hero-actions">
+          <a class="primary-button" href="#wishlist">
+            <span>Смотреть желания</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M12 5v14M6 13l6 6 6-6"/>
+            </svg>
+          </a>
+          <button
+            class="hero-fund-button"
+            type="button"
+            data-open-payment
+            aria-haspopup="dialog"
+            aria-controls="payment-modal"
+          >
+            <span>Поддержать сбор</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M5 12h14M14 7l5 5-5 5"/>
+            </svg>
+          </button>
+        </div>
       </div>
 
       <aside class="countdown" aria-label="Обратный отсчёт до дня рождения">
@@ -1278,21 +1340,22 @@
           </div>
         </article>
 
-        <article class="wish-card wide reveal" data-category="joy">
+        <article class="wish-card wide reveal" data-category="sport joy">
           <div class="card-top">
             <span class="card-number">10</span>
-            <span class="card-category">Мечта оверлевел</span>
+            <span class="card-category">Хоккей + путешествие</span>
           </div>
-          <h3>Поездка в Шанхай на The International</h3>
+          <h3>Взнос в SHL и небольшое путешествие</h3>
           <p>
-            Это уже прям оверлевел-желание, но было бы невероятно круто попасть в Шанхай
-            и своими глазами увидеть The International. Вдруг 30-ка — отличный повод
-            исполнить мечту по-крупному!
+            Вступительный взнос в SHL на хоккейный сезон — примерно 40 000 ₽.
+            А ещё хочется выбраться в небольшое путешествие. Можно поучаствовать
+            любой комфортной суммой — помочь 30-ке провести ещё один сезон на льду
+            и устроить маленькое приключение)
           </p>
           <div class="joy-actions">
             <div class="card-meta">
-              <span class="tag accent">Шанхай · The International</span>
-              <span class="tag">Оверлевел</span>
+              <span class="tag accent">SHL · сезон</span>
+              <span class="tag">Небольшое путешествие</span>
             </div>
             <div class="payment-controls">
               <a
@@ -1300,9 +1363,9 @@
                 href="https://messenger.online.sberbank.ru/sl/OK3LESKLYAtKsP0Tg"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Поддержать поездку через сбор Сбера"
+                aria-label="Поддержать сбор на SHL и небольшое путешествие через Сбер"
               >
-                <span>Поддержать поездку</span>
+                <span>Поддержать сбор</span>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -1319,6 +1382,7 @@
             </div>
           </div>
         </article>
+
       </div>
 
       <section class="note reveal" aria-label="Небольшое примечание">
@@ -1345,7 +1409,7 @@
     >
       <button class="payment-close" type="button" aria-label="Закрыть" data-close-payment>×</button>
       <p class="payment-kicker">Сбер · сбор</p>
-      <h2 id="payment-title">На поездку в Шанхай</h2>
+      <h2 id="payment-title">На SHL и небольшое путешествие</h2>
       <p class="payment-dialog-copy" id="payment-description">
         Сканируйте QR камерой телефона или откройте сбор прямо в Сбере.
       </p>
@@ -1369,7 +1433,7 @@
           <path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
-      <p class="payment-note">Любая сумма приблизит мечту.</p>
+      <p class="payment-note">Любая сумма приблизит новый хоккейный сезон и маленькое приключение.</p>
     </section>
   </div>
 
@@ -1697,7 +1761,7 @@
     }
 
     const paymentModal = document.getElementById("payment-modal");
-    const paymentTrigger = document.querySelector("[data-open-payment]");
+    const paymentTriggers = document.querySelectorAll("[data-open-payment]");
     const paymentCloseButtons = paymentModal.querySelectorAll("[data-close-payment]");
     const paymentCloseButton = paymentModal.querySelector(".payment-close");
     let paymentPreviousFocus = null;
@@ -1721,7 +1785,7 @@
       }
     }
 
-    paymentTrigger.addEventListener("click", openPayment);
+    paymentTriggers.forEach((button) => button.addEventListener("click", openPayment));
     paymentCloseButtons.forEach((button) => button.addEventListener("click", closePayment));
 
     document.addEventListener("keydown", (event) => {
