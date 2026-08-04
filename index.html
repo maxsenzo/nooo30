@@ -851,20 +851,33 @@
       font-size: 14px;
     }
 
-    .payment-qr {
-      width: min(100%, 270px);
-      margin: 0 auto 22px;
-      padding: 12px;
+    .transfer-details {
+      display: grid;
+      gap: 12px;
+      margin: 0 0 22px;
+      padding: 18px;
+      border: 1px solid rgba(215, 183, 122, 0.22);
       border-radius: 18px;
-      background: #f3f0e9;
-      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.24);
+      background: rgba(255, 255, 255, 0.045);
     }
 
-    .payment-qr img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
+    .transfer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .transfer-row span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .transfer-row strong {
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 650;
+      text-align: right;
     }
 
     .payment-action {
@@ -879,6 +892,14 @@
       margin: 13px 0 0;
       color: rgba(255, 255, 255, 0.46);
       font-size: 11px;
+      text-align: center;
+    }
+
+    .copy-feedback {
+      min-height: 16px;
+      margin: 10px 0 0;
+      color: var(--gold);
+      font-size: 12px;
       text-align: center;
     }
 
@@ -1358,26 +1379,18 @@
               <span class="tag">Небольшое путешествие</span>
             </div>
             <div class="payment-controls">
-              <a
+              <button
                 class="payment-button"
-                href="https://sberbank.com/sms/dialogs_sl?linkType=GROUP_CHAT&amp;linkName=OK3LESKLYAtKsP0Tg&amp;conversationType=1"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Поддержать сбор на SHL и небольшое путешествие через Сбер"
+                type="button"
+                data-open-payment
+                aria-haspopup="dialog"
+                aria-controls="payment-modal"
+                aria-label="Поддержать сбор на SHL и небольшое путешествие переводом по СБП"
               >
                 <span>Поддержать сбор</span>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-              </a>
-              <button
-                class="qr-button"
-                type="button"
-                data-open-payment
-                aria-haspopup="dialog"
-                aria-controls="payment-modal"
-              >
-                QR-код
               </button>
             </div>
           </div>
@@ -1408,32 +1421,33 @@
       aria-describedby="payment-description"
     >
       <button class="payment-close" type="button" aria-label="Закрыть" data-close-payment>×</button>
-      <p class="payment-kicker">Сбер · сбор</p>
+      <p class="payment-kicker">СБП · перевод</p>
       <h2 id="payment-title">На SHL и небольшое путешествие</h2>
       <p class="payment-dialog-copy" id="payment-description">
-        Сканируйте QR камерой телефона или откройте сбор прямо в Сбере.
+        Скопируйте номер и переведите любую комфортную сумму через приложение своего банка.
       </p>
-      <div class="payment-qr">
-        <img
-          src="data:image/png;base64,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"
-          width="420"
-          height="420"
-          alt="QR-код для перевода в сбор Сбера"
-        >
+      <div class="transfer-details" aria-label="Реквизиты для перевода">
+        <div class="transfer-row">
+          <span>Телефон</span>
+          <strong>+7 937 622-03-17</strong>
+        </div>
+        <div class="transfer-row">
+          <span>Банки</span>
+          <strong>Сбер · Альфа</strong>
+        </div>
+        <div class="transfer-row">
+          <span>Получатель</span>
+          <strong>Максим А.</strong>
+        </div>
       </div>
-      <a
-        class="payment-action"
-        href="https://sberbank.com/sms/dialogs_sl?linkType=GROUP_CHAT&amp;linkName=OK3LESKLYAtKsP0Tg&amp;conversationType=1"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Открыть сбор Сбера"
-      >
-        <span>Открыть сбор</span>
+      <button class="payment-action" id="copy-payment-phone" type="button" data-phone="+79376220317">
+        <span>Скопировать номер</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8 8h10v10H8zM6 15H5V5h10v1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-      </a>
-      <p class="payment-note">Любая сумма приблизит новый хоккейный сезон и маленькое приключение.</p>
+      </button>
+      <p class="copy-feedback" id="copy-payment-feedback" aria-live="polite"></p>
+      <p class="payment-note">Откройте приложение банка → перевод по номеру телефона → выберите Сбер или Альфа.</p>
     </section>
   </div>
 
@@ -1764,6 +1778,8 @@
     const paymentTriggers = document.querySelectorAll("[data-open-payment]");
     const paymentCloseButtons = paymentModal.querySelectorAll("[data-close-payment]");
     const paymentCloseButton = paymentModal.querySelector(".payment-close");
+    const copyPaymentPhone = document.getElementById("copy-payment-phone");
+    const copyPaymentFeedback = document.getElementById("copy-payment-feedback");
     let paymentPreviousFocus = null;
 
     function openPayment(event) {
@@ -1779,6 +1795,7 @@
       paymentModal.hidden = true;
       paymentModal.setAttribute("aria-hidden", "true");
       document.body.classList.remove("modal-open");
+      copyPaymentFeedback.textContent = "";
 
       if (paymentPreviousFocus) {
         paymentPreviousFocus.focus();
@@ -1787,6 +1804,30 @@
 
     paymentTriggers.forEach((button) => button.addEventListener("click", openPayment));
     paymentCloseButtons.forEach((button) => button.addEventListener("click", closePayment));
+
+    copyPaymentPhone.addEventListener("click", async () => {
+      const phone = copyPaymentPhone.dataset.phone;
+
+      try {
+        await navigator.clipboard.writeText(phone);
+      } catch (error) {
+        const fallback = document.createElement("textarea");
+        fallback.value = phone;
+        fallback.setAttribute("readonly", "");
+        fallback.style.position = "fixed";
+        fallback.style.opacity = "0";
+        document.body.appendChild(fallback);
+        fallback.select();
+        document.execCommand("copy");
+        fallback.remove();
+      }
+
+      copyPaymentFeedback.textContent = "Номер скопирован — откройте приложение банка";
+      copyPaymentPhone.querySelector("span").textContent = "Скопировано";
+      setTimeout(() => {
+        copyPaymentPhone.querySelector("span").textContent = "Скопировать номер";
+      }, 2200);
+    });
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && !paymentModal.hidden) {
